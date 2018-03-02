@@ -12,9 +12,29 @@
                         </div>
                     @endif
                         <h1>Admin area</h1>
+                        <div>
                         <a href="/movie/create" class="btn btn-default btn-xs" style="padding:0px 10px"><h3>Add a movie</h3></a>
                         <a href="/actor/create" class="btn btn-default btn-xs" style="padding:0px 10px"><h3>Add an actor</h3></a>
+                        </div>
+                        <br>
+                        <div>
+                            {!! Form::open(['action' => 'CategoriesController@store', 'method' => 'POST', 'enctype' =>'multipart/form-data']) !!}
+                            <div class="form-group">
+                            {{Form::label('name', 'New Category')}}
+                            {{Form::text('name')}}
+                            </div>
+                            <div class="form-group">
+                            {{Form::label('description', 'Category Desctiprion')}}
+                            {{Form::text('description')}}
+                            </div>
+                            <div class="form-group">
+                            {{Form::submit('Submit', ['class'=>"btn btn-default"])}}
+                            </div>
+                            {!! Form::close() !!}
+                        </div>
+
                     <h3>List of categories</h3>
+                        <ul>
                         @foreach($categories as $category)
                             <li class="list-group-item">
                                 <div class="container">

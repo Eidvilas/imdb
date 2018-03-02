@@ -5,6 +5,7 @@ namespace Blog\Http\Controllers;
 use Illuminate\Http\Request;
 use Blog\Categorie;
 use Blog\Movie;
+use Blog\User;
 
 class CategoriesController extends Controller
 {
@@ -35,8 +36,21 @@ class CategoriesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+
+
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $category = new Categorie;
+        $category->name = $request->input('name');
+        $category->description = $request->input('description');
+        $category->user_id=1;
+        $category->save();
+
+        return redirect('/home')->with('success', 'Category added');
+
     }
 
     /**
@@ -47,6 +61,7 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
+        $user = User::find($id);
         $category = Categorie::find($id);
         $movies = Movie::where('category_id', $id)->get();
 
